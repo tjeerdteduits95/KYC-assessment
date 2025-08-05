@@ -1,0 +1,41 @@
+resources:
+  jobs:
+    KYC_pipeline:
+      name: KYC pipeline
+      tasks:
+        - task_key: 01_ingest_data
+          notebook_task:
+            notebook_path: /Workspace/Users/tjeerdteduits@gmail.com/KYC-assessment/KYC-assessment/notebooks/01
+              Ingest data
+            source: WORKSPACE
+        - task_key: 02_enrich_data
+          depends_on:
+            - task_key: 01_ingest_data
+          notebook_task:
+            notebook_path: /Workspace/Users/tjeerdteduits@gmail.com/KYC-assessment/KYC-assessment/notebooks/02
+              Enrich data
+            source: WORKSPACE
+        - task_key: 03_rule_scoring
+          depends_on:
+            - task_key: 02_enrich_data
+          notebook_task:
+            notebook_path: /Workspace/Users/tjeerdteduits@gmail.com/KYC-assessment/KYC-assessment/notebooks/03
+              Rule scoring
+            source: WORKSPACE
+        - task_key: 04_ml_scoring
+          depends_on:
+            - task_key: 03_rule_scoring
+          notebook_task:
+            notebook_path: /Workspace/Users/tjeerdteduits@gmail.com/KYC-assessment/KYC-assessment/notebooks/04
+              ML scoring
+            source: WORKSPACE
+        - task_key: 05_risk_aggregation
+          depends_on:
+            - task_key: 04_ml_scoring
+          notebook_task:
+            notebook_path: /Workspace/Users/tjeerdteduits@gmail.com/KYC-assessment/KYC-assessment/notebooks/05
+              Risk aggregration
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: STANDARD

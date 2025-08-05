@@ -9,21 +9,21 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
 ## 🔧 Design Decisions and Trade-offs
 
 ### 1. Data Modeling
-- **Normalized structure**: Separated core entities (`clients`, `transactions`, `risk_events`, `model_outputs`) for clarity and scalability.
+- **Normalized structure**: Separated core entities (`clients`, `transactions`, `aml_risk_score`, `risk_events`, `model_outputs`) for clarity and scalability.
 - **AML Risk Score Table**: Modeled separately (`aml_risk_score`) to allow country-based enrichment and updates without modifying core client records.
-- **ERD**: Created using Draw.io for visualization; designed with future extensibility in mind.
+- **ER Diagram**: Created using Draw.io for visualization; designed with future extensibility and scalability in mind. Any additional risk factors, transaction or client information can be added without the need of changing the relations. 
 
-**Trade-off**: Normalization increases join complexity but enables flexibility for future schema evolution.
+**Trade-off**: Normalization (organising the data into separate, related tables) increases join complexity but enables flexibility for future schema evolution.
 
 ---
 
 ### 2. Lakehouse Architecture
-- Adopted a **Bronze → Silver → Gold** layer strategy:
+- Adopted a medallion architecture **Bronze → Silver → Gold** layer strategy:
   - **Bronze**: Raw ingested data (CSV format).
-  - **Silver**: Cleaned and enriched data (joined, typed).
+  - **Silver**: Cleaned and enriched data (enriched `clients` and `transactions` as well as `risk events` and `model outputs`).
   - **Gold**: Risk-scored outputs for consumption by BI tools or APIs.
 
-**Trade-off**: While more complex than a single pipeline, the layered approach enables reproducibility, modularity, and better governance.
+**Trade-off**: While more complex than a single pipeline, the layered approach enables reproducibility, modularity, and better governance. 
 
 ---
 
@@ -33,7 +33,7 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
   - Country-based risk scores using `aml_risk_score`.
 - **Trigger reasons** are consolidated into a single column for easier filtering and BI reporting.
 
-**Trade-off**: Rule-based logic is simple but may miss subtle fraud patterns; hence the addition of ML.
+**Trade-off**: Rule-based logic is simple but may miss subtle fraud patterns; hence the addition of ML. For future improvements with regards to parametrize the thresholds and models here, see next section.
 
 ---
 
@@ -47,10 +47,24 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
 
 ---
 
-### 5. LLM Integration
+### 5. Possible LLM Integration
 - **Azure OpenAI** used via API to analyze unstructured fields (e.g., transaction descriptions or client comments).
-- Integrated from Databricks using REST API.
-- Outputs stored alongside risk events for contextual insights.
+- Data comes from the Silver tables in Azure Data Lake Or directly from Spark DataFrames in Databricks. (e.g., enriched transactions and client data).
+- A Databricks Notebook step calls the Azure OpenAI REST API with requests.
+- Authentication happens via API key stored in Azure Key Vault.
+- LLM returns enriched annotations like risk indicators, summaries, entity tags.
+- Outputs stored alongside risk events for contextual insights and can be consumed by Power BI dashboards or SQL warehouse.
+
+**Describe how unstructured data would be passed to the LLM**
+- Unstructured data refers to free text fields such as notes, transaction descriptions, chat logs, etc
+- Ingested via Azure Data Lake storage, then Azure OpenAI API is called within Databricks to for example classify the risk in a certain transaction/client
+- Stored in Silver/Gold tables for reporting, rule triggers, or ML models
+
+**Describe how structured would be passed to the LLM**
+- Structured data is queried from Silver tables in Databricks.
+- Row-level context is converted to text and passed to the LLM.
+- Results are appended as columns (e.g., llm_risk_flag, llm_reason) in Gold tables.
+
 
 **Trade-off**: External API call adds latency and cost; mitigated by caching and batch inference.
 
@@ -65,9 +79,7 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
 ---
 
 ### 7. CI/CD
-- CI/CD pipeline built with **Azure Pipelines**, deploying notebooks, jobs, and configurations to Databricks.
-- Secured via **Azure Key Vault**.
-- Includes PR validation, integration tests, and deployment to **Staging → Production**.
+- CI/CD process described in drawio diagram.
 
 **Trade-off**: CI/CD complexity increases early in project lifecycle but offers long-term maintainability and team scaling.
 
@@ -75,25 +87,29 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
 
 ## 🚀 Ideas for Future Improvements
 
-### 1. Data Quality Layer
+### 1. Parametrize rule scoring and ML scoring steps
+- Use parameters for thresholds 
+- Use parameters to vary in terms of ML models (and subsequently use model registry in MLflow)
+
+### 2. Data Quality Layer
 - Add automatic data validation (e.g., using Deequ or Great Expectations).
 - Introduce data SLAs and alerting on schema drift or missing values.
 
-### 2. Model Monitoring
+### 3. Model Monitoring
 - Track drift or degradation in the anomaly detection model.
 - Implement continuous model retraining using MLflow and Delta Live Tables.
 
-### 3. Real-time Ingestion
+### 4. Real-time Ingestion
 - Replace batch CSV load with streaming ingestion from event sources (Kafka, Event Hub).
 
-### 4. Explainable AI
+### 5. Explainable AI
 - Replace or augment Isolation Forest with models that provide feature attribution (e.g., SHAP values).
 - Use GPT-based summarization to explain scores in natural language.
 
-### 5. Role-Based Dashboards
+### 6. Role-Based Dashboards
 - Use Power BI with row-level security to build dashboards for compliance officers, analysts, and auditors.
 
-### 6. LLM Usage Expansion
+### 7. LLM Usage Expansion
 - Expand transaction data with transaction descriptions and apply LLMs to detect anomalies or suspicious transactions
 - Expand client data with onboarding comments or client notes and apply LLMs
 - Perform name matching (e.g., PEPs/sanctions) using LLMs with vector embeddings.
@@ -105,10 +121,13 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
 
 | File / Notebook               | Purpose                                  |
 |------------------------------|------------------------------------------|
-| `notebook_1_ingestion.py`    | Load and store raw CSV data              |
-| `notebook_2_processing.py`   | Join, enrich, apply rule-based scoring   |
-| `notebook_3_risk_events.py`  | Generate risk event logs and reasons     |
-| `notebook_4_model.py`        | Train and apply Isolation Forest model   |
-| `ci_cd_diagram.drawio`       | CI/CD deployment flow using Azure Pipelines |
-| `architecture_diagram.drawio`| Cloud architecture in Azure + Databricks |
-| `data_model.drawio`          | ER diagram for tables and relationships  |
+| `notebooks/01 Ingest data.ipynb`    | Load and store raw CSV data              |
+| `notebooks/02 Enrich data.ipynb`   | Join, enrich, apply rule-based scoring   |
+| `notebooks/03 Rule scoring.ipynb`  | Generate risk event logs and reasons     |
+| `notebooks/04 ML scoring.ipynb`        | Train and apply Isolation Forest model   |
+| `CI CD.drawio`       | CI/CD deployment flow using Azure Pipelines |
+| `Cloud architecture.drawio`| Cloud architecture in Azure + Databricks |
+| `ER.drawio`          | ER diagram for entities and relationships  |
+| `aml_risk.csv`          | Raw CSV input data - AML risk list from ECB  |
+| `clients.csv`          | Raw CSV input data - clients  |
+| `transactions.csv`          | Raw CSV input data - transactions  |
