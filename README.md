@@ -10,7 +10,7 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
 
 ### 1. Data Modeling
 - **Normalized structure**: Separated core entities (`clients`, `transactions`, `aml_risk_score`, `risk_events`, `model_outputs`) for clarity and scalability.
-- **AML Risk Score Table**: Modeled separately (`aml_risk_score`) to allow country-based enrichment and updates without modifying core client records.
+- **AML Risk Score Table**: Modeled `aml_risk_score` separately to allow country-based enrichment and updates without modifying core client records.
 - **ER Diagram**: Created using Draw.io for visualization; designed with future extensibility and scalability in mind. Any additional risk factors, transaction or client information can be added without the need of changing the relations. 
 
 **Trade-off**: Normalization (organising the data into separate, related tables) increases join complexity but enables flexibility for future schema evolution.
@@ -31,6 +31,8 @@ This project implements a simplified Know Your Customer (KYC) solution using **A
 - Business rules include:
   - Flagging transactions over a defined threshold (e.g., €10,000).
   - Country-based risk scores using `aml_risk_score`.
+  - Flagging transactions with a 30 day rolling window sum of €50,000.
+  - Flagging transactions with a 30 day rolling window count of 10.
 - **Trigger reasons** are consolidated into a single column for easier filtering and BI reporting.
 
 **Trade-off**: Rule-based logic is simple but may miss subtle fraud patterns; hence the addition of ML. For future improvements with regards to parametrize the thresholds and models here, see next section.
