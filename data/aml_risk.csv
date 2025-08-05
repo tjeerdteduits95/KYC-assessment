@@ -1,0 +1,250 @@
+,aml_risk_score,country
+0,Low,Afghanistan
+1,Low,Albania
+2,High,Algeria
+3,Low,American Samoa
+4,Low,Andorra
+5,High,Angola
+6,Low,Anguilla
+7,Low,Antarctica
+8,Low,Antigua and Barbuda
+9,Low,Argentina
+10,Low,Armenia
+11,Low,Aruba
+12,Low,Australia
+13,Low,Austria
+14,Low,Azerbaijan
+15,Low,Bahamas
+16,Low,Bahrain
+17,Low,Bangladesh
+18,Low,Barbados
+19,Low,Belarus
+20,Low,Belgium
+21,Low,Belize
+22,Low,Benin
+23,Low,Bermuda
+24,Low,Bhutan
+25,Low,"Bolivia, Plurinational State of"
+26,Low,"Bonaire, Sint Eustatius and Saba"
+27,Low,Bosnia and Herzegovina
+28,Low,Botswana
+29,Low,Bouvet Island
+30,Low,Brazil
+31,Low,British Indian Ocean Territory
+32,Low,Brunei Darussalam
+33,High,Bulgaria
+34,High,Burkina Faso
+35,Low,Burundi
+36,Low,Cabo Verde
+37,Low,Cambodia
+38,High,Cameroon
+39,Low,Canada
+40,Low,Cayman Islands
+41,Low,Central African Republic
+42,Low,Chad
+43,Low,Chile
+44,Low,China
+45,Low,Christmas Island
+46,Low,Cocos (Keeling) Islands
+47,Low,Colombia
+48,Low,Comoros
+49,Low,Congo
+50,Low,"Congo, The Democratic Republic of the"
+51,Low,Cook Islands
+52,Low,Costa Rica
+53,Low,Croatia
+54,Low,Cuba
+55,Low,Curaçao
+56,Low,Cyprus
+57,Low,Czechia
+58,High,Côte d'Ivoire
+59,Low,Denmark
+60,Low,Djibouti
+61,Low,Dominica
+62,Low,Dominican Republic
+63,Low,Ecuador
+64,Low,Egypt
+65,Low,El Salvador
+66,Low,Equatorial Guinea
+67,Low,Eritrea
+68,Low,Estonia
+69,Low,Eswatini
+70,Low,Ethiopia
+71,Low,Falkland Islands (Malvinas)
+72,Low,Faroe Islands
+73,Low,Fiji
+74,Low,Finland
+75,Low,France
+76,Low,French Guiana
+77,Low,French Polynesia
+78,Low,French Southern Territories
+79,Low,Gabon
+80,Low,Gambia
+81,Low,Georgia
+82,Low,Germany
+83,Low,Ghana
+84,Low,Gibraltar
+85,Low,Greece
+86,Low,Greenland
+87,Low,Grenada
+88,Low,Guadeloupe
+89,Low,Guam
+90,Low,Guatemala
+91,Low,Guernsey
+92,Low,Guinea
+93,Low,Guinea-Bissau
+94,Low,Guyana
+95,High,Haiti
+96,Low,Heard Island and McDonald Islands
+97,Low,Holy See (Vatican City State)
+98,Low,Honduras
+99,Low,Hong Kong
+100,Low,Hungary
+101,Low,Iceland
+102,Low,India
+103,Low,Indonesia
+104,Low,"Iran, Islamic Republic of"
+105,Low,Iraq
+106,Low,Ireland
+107,Low,Isle of Man
+108,Low,Israel
+109,Low,Italy
+110,Low,Jamaica
+111,Low,Japan
+112,Low,Jersey
+113,Low,Jordan
+114,Low,Kazakhstan
+115,High,Kenya
+116,Low,Kiribati
+117,Low,"Korea, Democratic People's Republic of"
+118,Low,"Korea, Republic of"
+119,Low,Kuwait
+120,Low,Kyrgyzstan
+121,High,Lao People's Democratic Republic
+122,Low,Latvia
+123,High,Lebanon
+124,Low,Lesotho
+125,Low,Liberia
+126,Low,Libya
+127,Low,Liechtenstein
+128,Low,Lithuania
+129,Low,Luxembourg
+130,Low,Macao
+131,Low,Madagascar
+132,Low,Malawi
+133,Low,Malaysia
+134,Low,Maldives
+135,Low,Mali
+136,Low,Malta
+137,Low,Marshall Islands
+138,Low,Martinique
+139,Low,Mauritania
+140,Low,Mauritius
+141,Low,Mayotte
+142,Low,Mexico
+143,Low,"Micronesia, Federated States of"
+144,Low,"Moldova, Republic of"
+145,High,Monaco
+146,Low,Mongolia
+147,Low,Montenegro
+148,Low,Montserrat
+149,Low,Morocco
+150,High,Mozambique
+151,High,Myanmar
+152,High,Namibia
+153,Low,Nauru
+154,High,Nepal
+155,Low,Netherlands
+156,Low,New Caledonia
+157,Low,New Zealand
+158,Low,Nicaragua
+159,Low,Niger
+160,High,Nigeria
+161,Low,Niue
+162,Low,Norfolk Island
+163,Low,North Macedonia
+164,Low,Northern Mariana Islands
+165,Low,Norway
+166,Low,Oman
+167,Low,Pakistan
+168,Low,Palau
+169,Low,"Palestine, State of"
+170,Low,Panama
+171,Low,Papua New Guinea
+172,Low,Paraguay
+173,Low,Peru
+174,Low,Philippines
+175,Low,Pitcairn
+176,Low,Poland
+177,Low,Portugal
+178,Low,Puerto Rico
+179,Low,Qatar
+180,Low,Romania
+181,Low,Russian Federation
+182,Low,Rwanda
+183,Low,Réunion
+184,Low,Saint Barthélemy
+185,Low,"Saint Helena, Ascension and Tristan da Cunha"
+186,Low,Saint Kitts and Nevis
+187,Low,Saint Lucia
+188,Low,Saint Martin (French part)
+189,Low,Saint Pierre and Miquelon
+190,Low,Saint Vincent and the Grenadines
+191,Low,Samoa
+192,Low,San Marino
+193,Low,Sao Tome and Principe
+194,Low,Saudi Arabia
+195,High,Senegal
+196,Low,Serbia
+197,Low,Seychelles
+198,Low,Sierra Leone
+199,Low,Singapore
+200,Low,Sint Maarten (Dutch part)
+201,Low,Slovakia
+202,Low,Slovenia
+203,Low,Solomon Islands
+204,Low,Somalia
+205,High,South Africa
+206,Low,South Georgia and the South Sandwich Islands
+207,High,South Sudan
+208,Low,Spain
+209,Low,Sri Lanka
+210,Low,Sudan
+211,Low,Suriname
+212,Low,Svalbard and Jan Mayen
+213,Low,Sweden
+214,Low,Switzerland
+215,High,Syrian Arab Republic
+216,Low,"Taiwan, Province of China"
+217,Low,Tajikistan
+218,Low,"Tanzania, United Republic of"
+219,Low,Thailand
+220,Low,Timor-Leste
+221,Low,Togo
+222,Low,Tokelau
+223,Low,Tonga
+224,Low,Trinidad and Tobago
+225,Low,Tunisia
+226,Low,Turkmenistan
+227,Low,Turks and Caicos Islands
+228,Low,Tuvalu
+229,Low,Türkiye
+230,Low,Uganda
+231,Low,Ukraine
+232,Low,United Arab Emirates
+233,Low,United Kingdom
+234,Low,United States
+235,Low,United States Minor Outlying Islands
+236,Low,Uruguay
+237,Low,Uzbekistan
+238,Low,Vanuatu
+239,Low,"Venezuela, Bolivarian Republic of"
+240,High,Viet Nam
+241,High,"Virgin Islands, British"
+242,Low,"Virgin Islands, U.S."
+243,Low,Wallis and Futuna
+244,Low,Western Sahara
+245,High,Yemen
+246,Low,Zambia
+247,Low,Zimbabwe
+248,Low,Åland Islands
